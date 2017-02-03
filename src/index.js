@@ -117,28 +117,28 @@ function parameterize(str, options) {
   const opts = Object.assign({}, defaultOptions, options);
 
   // Replaces non-ASCII characters with an ASCII approximation
-  let parameterizedString = transliterate(str);
+  let output = transliterate(str);
 
   // Convert unwanted chars into the separator
-  parameterizedString = parameterizedString.replace(/[^a-z0-9-_]/gi, opts.separator || '');
+  output = output.replace(/[^a-z0-9-_]/gi, opts.separator || '');
 
   if (opts.separator) {
-    const escapedSeparator = escapeRegExp(String(opts.separator));
-    const maxOneSeparatorRegExp = new RegExp(`${escapedSeparator}{2,}`, 'g');
-    const trimSeparatorRegExp = new RegExp(`^${escapedSeparator}|${escapedSeparator}$`, 'g');
+    const escapedSep = escapeRegExp(String(opts.separator));
+    const maxOneSepRegExp = new RegExp(`${escapedSep}{2,}`, 'g');
+    const trimSepRegExp = new RegExp(`^${escapedSep}|${escapedSep}$`, 'g');
 
     // No more than one of the separator in a row.
-    parameterizedString = parameterizedString.replace(maxOneSeparatorRegExp, opts.separator);
+    output = output.replace(maxOneSepRegExp, opts.separator);
 
     // Remove leading/trailing separator.
-    parameterizedString = parameterizedString.replace(trimSeparatorRegExp, '');
+    output = output.replace(trimSepRegExp, '');
   }
 
   if (!opts.preserveCase) {
-    parameterizedString = parameterizedString.toLowerCase();
+    output = output.toLowerCase();
   }
 
-  return parameterizedString;
+  return output;
 }
 
 module.exports = parameterize;
