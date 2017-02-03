@@ -1,6 +1,6 @@
 {
   "name": "parameterize-string",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Replace any special characters in a string with an ASCII approximation.",
   "main": "lib/index.js",
   "directories": {
